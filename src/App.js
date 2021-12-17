@@ -17,7 +17,7 @@ const App = props => {
   return (
     <div>
       <nav className="navbar navbar-dark bg-dark">
-        <span className="navbar-brand" ><img width="40px" alt="" src="./Lambda-Logo-Red.png"/>Redux Module Project</span>
+        <span className="navbar-brand" ><img width="40px" alt="" src="./Lambda-Logo-Red.png"/>Nicholas Lacapria's Redux Module Project</span>
       </nav>
 
       <div className="container">
