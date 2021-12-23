@@ -6,7 +6,7 @@ import MovieFooter from './MovieFooter';
 import { getMovies } from '../actions/movieActions';
 // import movies from '../data';
 
-const MovieList = (props)=> {
+const MovieListRender = (props)=> {
     const [isMv,setIsMv] = useState(false);
     const {movies, gettingMovies} = props;
     const cMV = () =>{
@@ -59,4 +59,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps,{getMovies}) (MovieList);
+export default connect(mapStateToProps,{getMovies}) (MovieListRender);
