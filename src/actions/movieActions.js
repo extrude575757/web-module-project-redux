@@ -15,16 +15,18 @@ export const deleteMovie = (id)=>{
 export const getMovies = () => {
     const URL = 'https://movie-kdb.herokuapp.com/api/movie'
     const movies = axios.get(`${URL}`);
-    return dispatch => {
-      dispatch({ type: GETTING_MOVIES });
-      movies
+
+      return dispatch =>{
+        movies
         .then(response => {
-          dispatch({ type: GET_MOVIES, payload: response.data.movies });
+          console.log(response);
+          dispatch({ type: ADD_MOVIE, payload: response.data.movie });
         })
         .catch(err => {
           dispatch({ type: ERR, payload: err });
         });
-    };
+      }
+  
   };
   
 

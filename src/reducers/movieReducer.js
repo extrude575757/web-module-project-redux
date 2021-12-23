@@ -1,8 +1,9 @@
 import { ADD_MOVIE, DELETE_MOVIE, GET_MOVIES, ERR, GETTING_MOVIES } from '../actions/movieActions.js';
 // import movies from './../data.js';
 
+import { getMovies } from '../actions/movieActions';
 const initialState = {
-    movies: [],
+    movies: null  ,
     appTitle: "IMDB Movie Database",
     error: "",
     gettingMovies:false,
