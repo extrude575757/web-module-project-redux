@@ -7,20 +7,32 @@ import MovieFooter from './MovieFooter';
 
 const MovieList = (props)=> {
     const [fetch,setFetch] = useState(false);
+    const [error,setError] = useState(false);
     const {movie, isFetching, error} = props;
     useEffect(() =>{
         quick();
     }, [{movie}]);
 
     const quick = () =>{
-        if(isFetching){
-            setFetch(true);
-            props.getMovies();
-            <MovieListItem key={movie.id} movie={movie}/>
-        } else{
-        movie.map(mv=><MovieListItem key={mv.id} movie={mv}/>)
-        setFetch(false);
-    }
+        if(isFetching === true && error === false){
+            
+            if(fetch === true && error === true){
+                setError(true);
+                setFetch(false);
+            }else if(fetch === false && error === true){
+                setError(true);
+                isFetching = false;
+            }else{
+                setError(false);
+                setFetch(true); 
+            }
+        } else if(error === true && isFetching === false){
+                setError(true);
+                setFetch(false);
+            }else{
+                setFetch(false);
+                setError(false);
+            }
 }
 
     return (
