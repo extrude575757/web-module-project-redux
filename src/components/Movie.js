@@ -8,41 +8,41 @@ const Movie = (props) => {
     const { id } = useParams();
     const { push } = useHistory();
 
-    const {movies, deleteMovie, addFavorites} = props;
-    const movie = movies?.find(movie=>movie?.id===Number(id));
+    const {movie, deleteMovie, addFavorites} = props;
+    const mvi = movie?.find(mv=>mv?.id===Number(id));
     
     return(<div className="modal-page col">
             <div className="modal-dialog">
                 <div className="modal-content">
                     <div className="modal-header">						
-                        <h4 className="modal-title">{movie?.title === undefined  || movie?.title === null ? 
-                                           '' : movie?.title} Details</h4>
+                        <h4 className="modal-title">{mvi?.title === undefined  || mvi?.title === null ? 
+                                           '' : mvi?.title} Details</h4>
                     </div>
                     <div className="modal-body">
                         <div className="flexContainer">
 
                             <section className="movie-details">
                                 <div>
-                                    <label>Title: <strong>{movie?.title === undefined  || movie?.title === null ? 
-                                           '' : movie?.title
+                                    <label>Title: <strong>{mvi?.title === undefined  || mvi?.title === null ? 
+                                           '' : mvi?.title
 
                                     }</strong></label>
                                 </div>
                                 <div>
                                     <label>Director: <strong>{
-                                            movie?.director === undefined  || movie?.director === null ? 
-                                           '' : movie?.director
+                                            mvi?.director === undefined  || mvi?.director === null ? 
+                                           '' : mvi?.director
 
                                     }</strong></label>
                                 </div>
                                 <div>
-                                    <label>Genre: <strong>{movie?.genre === undefined  || movie?.genre === null ? 
-                                           '' : movie?.genre}</strong></label>
+                                    <label>Genre: <strong>{mvi?.genre === undefined  || mvi?.genre === null ? 
+                                           '' : mvi?.genre}</strong></label>
                                 </div>
                                 <div>
                                     <label>Metascore: <strong>{
-                                            movie?.metascore === undefined  || movie?.metascore === null ? 
-                                           '' : movie?.metascore
+                                            mvi?.metascore === undefined  || mvi?.metascore === null ? 
+                                           '' : mvi?.metascore
 
                                     }</strong></label>
                                 </div>
@@ -50,8 +50,8 @@ const Movie = (props) => {
                                     <label>Description:</label>
                                     <p><strong>{
 
-                                        movie?.description === undefined  || movie?.description === null ? 
-                                           '' : movie?.description
+                                        mvi?.description === undefined  || mvi?.description === null ? 
+                                           '' : mvi?.description
                                     }</strong></p>
                                 </div>
                             </section>
@@ -76,7 +76,7 @@ const Movie = (props) => {
 }
 const mapStateToProps = (state) => {
     return({
-        movies: state?.movieReducer?.movies,  displayFavorites: state?.favoriteReducer?.displayFavorites
+        movie: state?.movieReducer?.movie,  displayFavorites: state?.favoriteReducer?.displayFavorites
     })
 }
 

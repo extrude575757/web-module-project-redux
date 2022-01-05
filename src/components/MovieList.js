@@ -1,12 +1,15 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { connect } from 'react-redux'
-
+import { getMoviesStart } from '../actions/movieActions'
 import MovieListItem from './MovieListItem';
 import MovieFooter from './MovieFooter';
-import movies from '../data';
+// import movies from '../data';
 
 const MovieList = (props)=> {
-    const {movies} = props;
+    useEffect(() =>{
+        props.getMoviesStart();
+    }, []);
+    const {movie} = props;
 
     return (
         <div className="col">
@@ -23,22 +26,22 @@ const MovieList = (props)=> {
 
                 <tbody>
                     {
-                        movies?.map(movie=><MovieListItem key={movie?.id} 
+                        movie?.map(mv=><MovieListItem key={mv?.id} 
                         
                         movie={movie}/>)
                     }
                 </tbody>
             </table>
             
-            <MovieFooter totalMovies={movies?.length}/>
+            <MovieFooter totalMovies={movie?.length}/>
         </div>
     );
 }
 
 const mapStateToProps = (state) => {
     return({
-        movies: state?.movieReducer?.movies
+        movie: state?.movieReducer?.movie
     })
 }
 
-export default connect(mapStateToProps,{}) (MovieList);
+export default connect(mapStateToProps,{getMoviesStart}) (MovieList);
