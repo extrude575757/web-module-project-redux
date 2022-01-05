@@ -11,35 +11,35 @@ const initialState = {
 }
 
 const reducer = (state = initialState, action) => {
-    switch(action?.type) {
+    switch(action.type) {
         case DELETE_MOVIE:
             return ({
                 ...state,
-                movie: state?.movie?.filter(item=>(action?.payload !== item?.id))
+                movie: state.movie.filter(item=>(action.payload !== item.id))
             })
         case ADD_MOVIE:
             return ({
                 ...state,
-                movie: [...state?.movie, action?.payload]
+                movie: [...state.movie, action.payload]
             })
         case GET_MOVIES_START:
             return ({
                 ...state,
-                movie: [...state?.movie, action?.payload],
+                movie: [{}],
                 isFetching:true,
                 error:''
             })
             case GET_MOVIES_SUCCESS:
                 return ({
                     ...state,
-                    movie: [...state?.movie, action?.payload],
-                    isFetching:true,
+                    movie: [...state.movie, action.payload],
+                    isFetching:false,
                     error:''
             })
             case GET_MOVIES_FAIL:
                 return ({
                     ...state,
-                    movie: [...state?.movie, action?.payload],
+                    movie: [{}],
                     isFetching:false,
                     error:''
         })

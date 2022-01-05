@@ -20,7 +20,7 @@ export const getMovies = () =>{
         axios.get("https://movie-kdb.herokuapp.com/api/movie")
             .then(resp=> {
                 console.log("res---",resp);
-            console.log("movie---",resp.data.movie);
+            // console.log("movie---",resp.data.movie);
             dispatch(getMoviesSuccess(resp.data.movie));
         })
             .catch(err=>{
