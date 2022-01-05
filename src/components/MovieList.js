@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect,useState} from 'react';
 import { connect } from 'react-redux'
 import { getMovies, getMoviesFail } from '../actions/movieActions'
 import MovieListItem from './MovieListItem';
@@ -6,10 +6,22 @@ import MovieFooter from './MovieFooter';
 // import movies from '../data';
 
 const MovieList = (props)=> {
-    useEffect(() =>{
-        props.getMovies();
-    }, []);
+    const [fetch,setFetch] = useState(false);
     const {movie, isFetching, error} = props;
+    useEffect(() =>{
+        quick();
+    }, [{movie}]);
+
+    const quick = () =>{
+        if(isFetching){
+            setFetch(true);
+            props.getMovies();
+            <MovieListItem key={movie.id} movie={movie}/>
+        } else{
+        movie.map(mv=><MovieListItem key={mv.id} movie={mv}/>)
+        setFetch(false);
+    }
+}
 
     return (
         <div className="col">
@@ -28,7 +40,7 @@ const MovieList = (props)=> {
                 {
                     //  isFetching ? movie.map(mv=><MovieListItem key={mv.id} movie={mv}/>)
                     //  : 
-                    //     props.getMoviesFail("Snaps")
+                    //     getMoviesFail("Snaps")
                     
                     }
                 </tbody>
@@ -45,4 +57,4 @@ const mapStateToProps = (state) => {
     })
 }
 
-export default connect(mapStateToProps,{getMovies,getMoviesFail}) (MovieList);
+export default connect(mapStateToProps,{getMovies,getMoviesFail})(MovieList);
