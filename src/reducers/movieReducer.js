@@ -38,10 +38,9 @@ const reducer = (state = initialState, action) => {
             })
             case GET_MOVIES_FAIL:
                 return ({
-                    ...state,
-                    movie: [{}],
+                    ...state, 
                     isFetching:false,
-                    error:''
+                    error:action.payload
         })
         default:
             return state;
