@@ -4,19 +4,22 @@ import { getMovies, getMoviesFail,getMoviesStart } from '../actions/movieActions
 import MovieListItem from './MovieListItem';
 import MovieFooter from './MovieFooter';
 // import movies from '../data';
-
-const MovieList = (props)=> {
+import MovieTBody from './MovieTBody';
+const MovieList = ( props)=> {
     const {movie, isFetching, error} = props;
     useEffect(() =>{
         if(isFetching){
+            // props.getMoviesStart();
             // console.log('isFetching'+movie);
         }else if(isFetching === false && movie?.length === 1 && movie?.length !== undefined) {
             props.getMovies();
             // console.log(movie);
         }else{
             
-            console.log(movie);
-            props.getMoviesFail('');
+            if(movie.length > 0 && movie.length !== undefined ){
+                console.log('MvList19 '+movie+' '+movie[1]?.movie);
+            }
+            props.getMoviesFail('Just to make it go false');
         }
     }, [{}]);
     
@@ -34,14 +37,9 @@ const MovieList = (props)=> {
                 </tr>
                 </thead>
 
-                <tbody>
-                {
-                    //  isFetching ? movie.map(mv=><MovieListItem key={mv.id} movie={mv}/>)
-                    //  : 
-                    //     props.getMoviesFail("Snaps")
-                    
-                    }
-                </tbody>
+                {  
+                    <MovieTBody /> 
+                }
             </table>
             
             <MovieFooter totalMovies={ movie[1]?.length}/>
