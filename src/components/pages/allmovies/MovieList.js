@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
 import { connect } from 'react-redux'
-import { getMovies, getMoviesFail,getMoviesStart } from '../actions/movieActions'
-import MovieListItem from './MovieListItem';
-import MovieFooter from './MovieFooter';
+import { getMovies, getMoviesFail,getMoviesStart } from '../../../actions/movieActions'
+import {MovieListItem} from '../../common';
+import {MovieFooter} from '../../common';
 // import movies from '../data';
 import MovieTBody from './MovieTBody';
 const MovieList = ( props)=> {

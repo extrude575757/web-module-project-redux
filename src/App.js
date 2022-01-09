@@ -1,15 +1,11 @@
 import React from "react";
-
 import { Route, Switch, Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
-
-import MovieList from './components/MovieList';
-import Movie from './components/Movie';
-
-import MovieHeader from './components/MovieHeader';
-
-import AddMovieForm from './components/AddMovieForm';
-import FavoriteMovieList from './components/FavoriteMovieList';
+import {MovieList} from './components/pages/allmovies';
+import Movie from './components/pages/movie/Movie';
+import MovieHeader from './components/common/MovieHeader';
+import AddMovieForm from './components/pages/addmovie/AddMovieForm';
+import FavoriteMovieList from './components/common/FavoriteMovieList';
 
 const App = props => {
   const {displayFavorites} = props;

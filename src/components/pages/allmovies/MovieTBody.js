@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import { connect } from 'react-redux'
-import { getMovies, getMoviesFail,getMoviesStart } from '../actions/movieActions'
-import MovieListItem from './MovieListItem';
+import { getMovies, getMoviesFail,getMoviesStart } from '../../../actions/movieActions'
+import MovieListItem from '../../common/MovieListItem';
 
 const MovieTBody = ( {...props})=> {
     const {movie, isFetching, error} = props;

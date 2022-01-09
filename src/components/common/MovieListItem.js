@@ -10,7 +10,7 @@ const MovieListItem = ( {...props})=> {
       <td>{genre}</td>
       <td>{metascore}</td>
       <td>
-        <Link to={`/movies/${movie?.id}`} className="view">
+        <Link to={`/movies/${id}`} className="view">
           <input type="button" className="btn btn-secondary" value="View"/>
         </Link>
       </td>
