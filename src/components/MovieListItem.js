@@ -2,15 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux'
 const MovieListItem = ( {...props})=> {
-  const { id, title, director, genre, metascore} = props?.movie[1];
+  const { movie} = props;
 
-  return(<tr key={id}>
-      <td>{title}</td>
-      <td>{director}</td>
-      <td>{genre}</td>
-      <td>{metascore}</td>
+  return(<tr key={movie?.id}>
+      <td>{movie[1]?.title}</td>
+      <td>{movie?.director}</td>
+      <td>{movie?.genre}</td>
+      <td>{movie?.metascore}</td>
       <td>
-        <Link to={`/movies/${id}`} className="view">
+        <Link to={`/movies/${movie?.id}`} className="view">
           <input type="button" className="btn btn-secondary" value="View"/>
         </Link>
       </td>
