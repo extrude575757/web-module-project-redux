@@ -3,9 +3,9 @@ import { useParams, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux'
 import {deleteMovie} from '../../../actions/movieActions'
 import { addFavorites, deleteFavorites } from '../../../actions/favoritesActions'
-import {MovieRender } from './MovieRender';
+// import {MovieRender } from './MovieRender';
 const MovieRender = (props) => {
-    const { id } = useParams();
+    // const { id } = useParams();
     const { push } = useHistory();
     // const [ mvi, setMvi ] = useState(0);
     const {movie, deleteMovie, addFavorites} = props;

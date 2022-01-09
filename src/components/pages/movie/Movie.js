@@ -3,7 +3,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux'
 import {deleteMovie} from '../../../actions/movieActions'
 import { addFavorites, deleteFavorites } from '../../../actions/favoritesActions'
-import {MovieRender } from './MovieRender';
+import MovieRender  from './MovieRender';
 const Movie = (props) => {
     const { id } = useParams();
     const { push } = useHistory();
@@ -21,7 +21,7 @@ const Movie = (props) => {
             <div className="modal-dialog">
                 <div className="modal-content">
                     <div className="modal-header">						
-                        <h4 className="modal-title">{movie[1].title} Details</h4>
+                        <h4 className="modal-title">{movie.title} Details</h4>
                     </div>
                     <div className="modal-body">
                        <MovieRender />

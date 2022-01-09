@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
 import {MovieList} from './components/pages/allmovies';
-import {Movie} from './components/pages/Movie';
+import {Movie} from './components/pages/movie';
 import MovieHeader from './components/common/MovieHeader';
 import AddMovieForm from './components/pages/addmovie/AddMovieForm';
 import FavoriteMovieList from './components/common/FavoriteMovieList';
