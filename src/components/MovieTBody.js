@@ -29,7 +29,9 @@ const MovieTBody = ( {...props})=> {
 
         <tbody>
             {
-                movie[1] && movie[1]?.map(mv=><MovieListItem key={mv.id} movie={mv}/>)
+                movie[1] && movie[1]?.map(mv=><MovieListItem key={mv.id} 
+                    title={mv.title}director={mv.director}
+                    genre={mv.genre}metascore={mv.metascore}movie={mv}/>)
                      
                     
             }
