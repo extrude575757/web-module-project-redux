@@ -9,8 +9,7 @@ const MovieList = ( props)=> {
     const {movie, isFetching, error} = props;
     useEffect(() =>{
         if(isFetching){
-            // props.getMoviesStart();
-            // console.log('isFetching'+movie);
+            // props.getMoviesStart();console.log('isFetching'+movie);
         }else if(isFetching === false && movie?.length === 1 && movie?.length !== undefined) {
             props.getMovies();
             // console.log(movie);
