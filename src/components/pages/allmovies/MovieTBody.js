@@ -22,19 +22,22 @@ const MovieTBody = ( {...props})=> {
     //     console.log('why');
 
     // }, [{}]);
-    
+    const rnd = () =>{
+        return (
+            
+                movie && movie.map(mv=><MovieListItem key={mv.id} 
+                    id={mv.id}title={mv.title}director={mv.director}
+                    genre={mv.genre}metascore={mv.metascore}movie={mv}/>)
+                     
+                    
+        )
+    }
 
     return (
 
 
         <tbody>
-            {
-                movie[1] && movie[1]?.map(mv=><MovieListItem key={mv.id} 
-                    title={mv.title}director={mv.director}
-                    genre={mv.genre}metascore={mv.metascore}movie={mv}/>)
-                     
-                    
-            }
+            {rnd()}
         </tbody>
        
     );
@@ -42,7 +45,7 @@ const MovieTBody = ( {...props})=> {
 
 const mapStateToProps = ({...state}) => {
     return({
-        movie: state?.movieReducer?.movie,
+        movie: state?.movieReducer?.movie[1],
         isFetching: state?.movieReducer?.isFetching
     })
 }

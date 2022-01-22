@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux'
 const MovieListItem = ( {...props})=> {
   const { movie, title, director, genre, id,metascore} = props;
-
+ 
   return(<tr key={id}>
       <td>{title}</td>
       <td>{director}</td>
@@ -19,6 +19,7 @@ const MovieListItem = ( {...props})=> {
 
 
 const mapStateToProps = ( {...state}) => {
+  
   return({
       movie: state?.movieReducer?.movie[1]
   })
