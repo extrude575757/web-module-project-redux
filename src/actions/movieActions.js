@@ -7,6 +7,8 @@ export const GET_MOVIES_FAIL = "GET_MOVIES_FAIL";
 export const GET_MOVIE_ID = "GET_MOVIE_ID";
 import axios from 'axios';
 export const deleteMovie = (id)=>{
+    const res =   axios.delete('https://movie-kdb.herokuapp.com/api/movie/'+id);
+                res.status;
     return({type: DELETE_MOVIE, payload:id});
 }
 export const getMovieID = (id) =>{

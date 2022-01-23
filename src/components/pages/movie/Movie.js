@@ -18,20 +18,7 @@ const Movie = ({...props}) => {
     // }
     useEffect(() =>{
           setMvi(movie?.find(mv=>mv.id===Number(id)));
-            // console.log(mvi);
-        
-    //     if(isFetching){
-    //         // props.getMoviesStart();console.log('isFetching'+movie);
-    //     }else if(isFetching === false && movie?.length === 1 && movie?.length !== undefined) {
-    //         setMvi(movie.find(mv=>mv.id===Number(id)));
-    //         console.log(mvi);
-    //     }else{ 
-    //         if(movie.length > 0 && movie.length !== undefined ){
-    //             console.log('Movie '+movie+' '+movie?.id);
-    //         }else{
-    //         props.getMoviesFail('Just to make it go false');
-    //     }
-    // }
+ 
 }, []);
     
     // Move to container from a hook 
