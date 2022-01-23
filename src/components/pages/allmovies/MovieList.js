@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react';
 import { connect } from 'react-redux'
 import { getMovies, getMoviesFail,getMoviesStart } from '../../../actions/movieActions'
-import {MovieListItem} from '../../common';
+
 import {MovieFooter} from '../../common';
 // import movies from '../data';
 import MovieTBody from './MovieTBody';
-const MovieList = ( props)=> {
+const MovieList = ( {...props})=> {
     const {movie, isFetching, error} = props;
     useEffect(() =>{
         if(isFetching){
@@ -13,14 +13,14 @@ const MovieList = ( props)=> {
         }else if(isFetching === false && movie?.length === 1 && movie?.length !== undefined) {
             props.getMovies();
             // console.log(movie);
-        }else{
-            
+        }else{ 
             if(movie.length > 0 && movie.length !== undefined ){
-                console.log('MvList19 '+movie+' '+movie[1]?.movie);
-            }
+                console.log('MvList19 '+movie+' '+movie[1]?.id);
+            }else{
             props.getMoviesFail('Just to make it go false');
         }
-    }, [{}]);
+    }
+}, [{}]);
     
 
     return (
@@ -32,12 +32,12 @@ const MovieList = ( props)=> {
                     <th>Director</th>
                     <th>Genre</th>
                     <th>Metascore</th>
-                    <th></th>
+                    
                 </tr>
                 </thead>
 
                 {  
-                    <MovieTBody /> 
+                    <MovieTBody  /> 
                 }
             </table>
             

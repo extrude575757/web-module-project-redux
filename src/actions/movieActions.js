@@ -4,11 +4,25 @@ export const GET_MOVIES = "GET_MOVIES";
 export const GET_MOVIES_START = "GET_MOVIES_START";
 export const GET_MOVIES_SUCCESS = "GET_MOVIES_SUCCESS";
 export const GET_MOVIES_FAIL = "GET_MOVIES_FAIL";
+export const GET_MOVIE_ID = "GET_MOVIE_ID";
 import axios from 'axios';
 export const deleteMovie = (id)=>{
     return({type: DELETE_MOVIE, payload:id});
 }
-
+export const getMovieID = (id) =>{
+    return (dispatch)=>{
+        dispatch(getMoviesStart());
+        axios.get("https://movie-kdb.herokuapp.com/api/movie/"+id)
+            .then(resp=> {
+                console.log("getMoviesID_",resp);
+            // console.log("movie---",resp.data.movie);
+            dispatch(getMoviesSuccess(resp.data.movie));
+        })
+            .catch(err=>{
+            dispatch(getMoviesFail(err));
+        });
+    }
+}
 export const addMovie = (movie)=>{
     console.log(movie);
     return({type: ADD_MOVIE, payload:movie});
@@ -19,7 +33,7 @@ export const getMovies = () =>{
         dispatch(getMoviesStart());
         axios.get("https://movie-kdb.herokuapp.com/api/movie")
             .then(resp=> {
-                console.log("res---",resp);
+                console.log("getMovies_res---",resp);
             // console.log("movie---",resp.data.movie);
             dispatch(getMoviesSuccess(resp.data.movie));
         })

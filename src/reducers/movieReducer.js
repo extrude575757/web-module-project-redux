@@ -1,10 +1,10 @@
-import { ADD_MOVIE, DELETE_MOVIE, GET_MOVIES, 
+import { ADD_MOVIE, DELETE_MOVIE, GET_MOVIE_ID, 
     GET_MOVIES_FAIL, GET_MOVIES_START, GET_MOVIES_SUCCESS } from '../actions/movieActions.js';
 // import movies from './../data.js';
 
 const initialState = {
     movie:[ {"id":0,"title":"","director":"","metascore":2,
-    "genre":"","description":""}],
+    "genre":"","description":"","favorites":false}],
     appTitle: "IMDB Movie Database",
     isFetching: false,
     error: ''
@@ -12,6 +12,11 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch(action.type) {
+        case GET_MOVIE_ID: 
+            return ({
+                ...state,
+                movie: [...state.movie, action.payload]
+            })
         case DELETE_MOVIE:
             return ({
                 ...state,

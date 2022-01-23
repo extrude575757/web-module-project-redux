@@ -5,20 +5,21 @@ import {deleteMovie} from '../../../actions/movieActions'
 import { addFavorites, deleteFavorites } from '../../../actions/favoritesActions'
 // import {MovieRender } from './MovieRender';
 const MovieRender = (props) => {
-    // const { id } = useParams();
+    const { id } = useParams();
     const { push } = useHistory();
     // const [ mvi, setMvi ] = useState(0);
     const {movie, deleteMovie, addFavorites} = props;
     // setMvi( function(){
     //     movie?.find(mv=>mv?.id===Number(id))
     // });
-    const letsfind = () =>{
-        const mvi = movie.find(mv=>mv?.id===Number(id));
+    const letsfindid = () =>{
+        // Find movie description by id
+        const mvi = movie?.find(mv=>mv?.id===Number(id));
         return mvi;
     }
 
     const kn = () =>{
-        console.log(movie);
+        console.log(letsfindid());
     }
     return (
         kn(),
@@ -71,7 +72,7 @@ const MovieRender = (props) => {
         }
     const mapStateToProps = (state) => {
         return({
-            movie: state.movieReducer.movie,  displayFavorites: state.favoriteReducer.displayFavorites
+            movie: state.movieReducer.movie[1],  displayFavorites: state.favoriteReducer.displayFavorites
         })
     }
     

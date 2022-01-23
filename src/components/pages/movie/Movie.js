@@ -21,7 +21,7 @@ const Movie = (props) => {
             <div className="modal-dialog">
                 <div className="modal-content">
                     <div className="modal-header">						
-                        <h4 className="modal-title">{movie.title} Details</h4>
+                        <h4 className="modal-title">{movie?.title} Details</h4>
                     </div>
                     <div className="modal-body">
                        <MovieRender />
@@ -32,7 +32,7 @@ const Movie = (props) => {
 }
 const mapStateToProps = (state) => {
     return({
-        movie: state.movieReducer.movie,  displayFavorites: state.favoriteReducer.displayFavorites
+        movie: state.movieReducer.movie[1],  displayFavorites: state.favoriteReducer.displayFavorites
     })
 }
 
