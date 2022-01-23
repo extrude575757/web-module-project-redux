@@ -5,65 +5,66 @@ import {deleteMovie} from '../../../actions/movieActions'
 import { addFavorites, deleteFavorites } from '../../../actions/favoritesActions'
 // import {MovieRender } from './MovieRender';
 const MovieRender = (props) => {
-    const { id } = useParams();
+    // // Move to container
+    // const { id } = useParams();
     const { push } = useHistory();
     // const [ mvi, setMvi ] = useState(0);
-    const {movie, deleteMovie, addFavorites} = props;
+    const {curMovie, deleteMovie, addFavorites} = props;
     // setMvi( function(){
     //     movie?.find(mv=>mv?.id===Number(id))
     // });
-    const letsfindid = () =>{
-        // Find movie description by id
-        const mvi = movie?.find(mv=>mv?.id===Number(id));
-        return mvi;
-    }
-
-    const kn = () =>{
-        const theobj = letsfindid();
-        console.log(theobj.id);
-    }
-    return (
-        kn(),
+    // // Move to container from a hook 
+    // const letsfindid = () =>{
+    //     // Find movie description by id
+    //     const mvi = movie?.find(mv=>mv?.id===Number(id));
+    //     return mvi;
+    // }
+    // // Move to container and into a use state to map props
+    // const kn = () =>{
+    //     const theobj = letsfindid();
+    //     console.log(theobj.id);
+    // }
+    return ( 
         <div className="flexContainer">
 
         <section className="movie-details">
             <div>
                 <label>Title: <strong>{ 
-                movie?.title
+                curMovie?.title
 
                 }</strong></label>
             </div>
             <div>
                 <label>Director: <strong>{
-                       movie?.director
+                       curMovie?.director
 
                 }</strong></label>
             </div>
             <div>
-                <label>Genre: <strong>{movie?.genre}</strong></label>
+                <label>Genre: <strong>{curMovie?.genre}</strong></label>
             </div>
             <div>
                 <label>Metascore: <strong>{
-                        movie?.metascore
+                        curMovie?.metascore
 
                 }</strong></label>
             </div>
             <div>
                 <label>Description:</label>
                 <p><strong>{
-            movie?.description
+            curMovie?.description
                 }</strong></p>
             </div>
         </section>
         
         <section>
             <span className="m-2 btn btn-dark" onClick={() => {
-                addFavorites(movie)
+                addFavorites(curMovie)
                 
             }}>Favorite</span>
             <span className="delete" onClick={() => {
-                deleteMovie(movie?.id);
-                deleteFavorites(movie?.id);
+                deleteMovie(curMovie?.id);
+                deleteFavorites(curMovie?.id);
                 push('/movies') ;
             }
             }><input type="button" className="m-2 btn btn-danger" value="Delete"/></span>
@@ -73,7 +74,8 @@ const MovieRender = (props) => {
         }
     const mapStateToProps = (state) => {
         return({
-            movie: state.movieReducer.movie[1],  displayFavorites: state.favoriteReducer.displayFavorites
+            movie: state.movieReducer.movie[1],  
+            displayFavorites: state.favoriteReducer.displayFavorites
         })
     }
     

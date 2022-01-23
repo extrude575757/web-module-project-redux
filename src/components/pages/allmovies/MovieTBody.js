@@ -22,7 +22,7 @@ const MovieTBody = ( {...props})=> {
     //     console.log('why');
 
     // }, [{}]);
-    const rnd = () =>{
+    const mvlist = () =>{
         return (
             
                 movie && movie.map(mv=><MovieListItem key={mv.id} 
@@ -37,7 +37,7 @@ const MovieTBody = ( {...props})=> {
 
 
         <tbody>
-            {rnd()}
+            {mvlist()}
         </tbody>
        
     );
