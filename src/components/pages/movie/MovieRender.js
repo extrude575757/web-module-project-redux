@@ -19,7 +19,8 @@ const MovieRender = (props) => {
     }
 
     const kn = () =>{
-        console.log(letsfindid());
+        const theobj = letsfindid();
+        console.log(theobj.id);
     }
     return (
         kn(),
