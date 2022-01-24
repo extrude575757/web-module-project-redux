@@ -31,7 +31,7 @@ export const addMovie = (movie)=>{
         console.log('addmove ' +movie.title);
         axios.post("https://movie-kdb.herokuapp.com/api/movie/", movie)
         .then(resp =>{
-            console.log('nal resp movieActino 34 addmovie '+resp);
+            console.log('nal resp movieActino 34 addmovie ',resp.data);
             dispatch(postAddMovie(movie))
         })
         .catch(er =>{

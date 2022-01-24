@@ -4,7 +4,7 @@ import { addMovie } from '../../../actions/movieActions'
 import { useHistory } from 'react-router-dom';
 import AddMovieForm  from './AddMovieForm';
 const AddMovieContainerForm  = ( {...props}) =>{
-    // const {movie} = props;
+    const {movie} = props;
     const { push } = useHistory();
     // const {addMovie} = props;
 
@@ -13,7 +13,7 @@ const AddMovieContainerForm  = ( {...props}) =>{
         description:"", 
         director: "",
         genre: "",
-        id:3,
+        id:movie.length ,
         metascore: 0,
         title: ""
         // date: Date.now()
@@ -35,7 +35,7 @@ const AddMovieContainerForm  = ( {...props}) =>{
     }
 
     useEffect(()=>{
-        console.log(mvi);
+        console.log(movie.length );
     },[{}]);
 
 
@@ -49,7 +49,7 @@ const AddMovieContainerForm  = ( {...props}) =>{
 
 const mapStateToProps = (state) =>{
     return ({
-        movie:state.movieReducer.movie[0]
+        movie: state?.movieReducer?.movie[1]
     })
 }
 
