@@ -7,6 +7,7 @@ export const GET_MOVIES_FAIL = "GET_MOVIES_FAIL";
 export const GET_MOVIE_ID = "GET_MOVIE_ID";
 import axios from 'axios';
 export const deleteMovie = (id)=>{
+    // Make into promise
     const res =   axios.delete('https://movie-kdb.herokuapp.com/api/movie/'+id);
                 res.status;
     return({type: DELETE_MOVIE, payload:id});
@@ -26,8 +27,16 @@ export const getMovieID = (id) =>{
     }
 }
 export const addMovie = (movie)=>{
-    console.log(movie);
-    return({type: ADD_MOVIE, payload:movie});
+    // console.log(movie);
+    axios.post("https://movie-kdb.herokuapp.com/api/movie")
+        .then(resp =>{
+            console.log(resp);
+            return({type: ADD_MOVIE, payload:movie});
+        })
+        .catch(er =>{
+            console.log(er);
+        })
+    
 }
 
 export const getMovies = () =>{
