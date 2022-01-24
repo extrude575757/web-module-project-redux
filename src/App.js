@@ -3,7 +3,7 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
 import {MovieList} from './components/pages/allmovies';
 import {Movie} from './components/pages/movie';
-import AddMovieForm from './components/pages/addmovie/AddMovieForm';
+import AddMovieContainerForm from './components/pages/addmovie/AddMovieContainerForm';
 import FavoriteMovieList from './components/common/FavoriteMovieList';
 import MovieHeader from './components/common/MovieHeader';
 
@@ -23,7 +23,7 @@ const App = props => {
         
           <Switch>
             <Route exact path="/movies/add">
-              <AddMovieForm />
+              <AddMovieContainerForm />
             </Route>
 
             <Route path="/movies/:id">

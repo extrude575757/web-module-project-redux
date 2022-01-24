@@ -28,8 +28,7 @@ const MovieTBody = ( {...props})=> {
                 movie && movie.map(mv=><MovieListItem key={mv.id} 
                     id={mv.id}title={mv.title}director={mv.director}
                     genre={mv.genre}metascore={mv.metascore}movie={mv}/>)
-                     
-                    
+                      
         )
     }
 

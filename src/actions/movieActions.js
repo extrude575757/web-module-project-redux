@@ -27,15 +27,18 @@ export const getMovieID = (id) =>{
     }
 }
 export const addMovie = (movie)=>{
-    // console.log(movie);
-    axios.post("https://movie-kdb.herokuapp.com/api/movie")
+    return (dispatch)=>{
+        console.log('addmove ' +movie.title);
+        axios.post("https://movie-kdb.herokuapp.com/api/movie/", movie)
         .then(resp =>{
-            console.log(resp);
-            return({type: ADD_MOVIE, payload:movie});
+            console.log('nal resp movieActino 34 addmovie '+resp);
+            dispatch(postAddMovie(movie))
         })
         .catch(er =>{
+            dispatch(getMoviesFail(err));
             console.log(er);
         })
+    }
     
 }
 
@@ -53,7 +56,9 @@ export const getMovies = () =>{
         });
     }
 }
-
+export const postAddMovie = (movie) =>{
+    return({type: ADD_MOVIE, payload:movie});
+}
 export const getMoviesStart = ()=>{
     return({type: GET_MOVIES_START});
   }
