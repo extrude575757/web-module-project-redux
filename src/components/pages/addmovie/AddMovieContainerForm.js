@@ -12,7 +12,7 @@ const AddMovieContainerForm  = ( {...props}) =>{
         description:"", 
         director: "",
         genre: "",
-        id:movie.length ,
+        id:movie?.length ,
         metascore: 0,
         title: ""
         // date: Date.now()
@@ -33,7 +33,7 @@ const AddMovieContainerForm  = ( {...props}) =>{
     }
 
     useEffect(()=>{
-        console.log(movie.length );
+        console.log(movie?.length );
     },[{}]);
 
 
