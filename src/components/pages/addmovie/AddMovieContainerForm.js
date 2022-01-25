@@ -6,7 +6,6 @@ import AddMovieForm  from './AddMovieForm';
 const AddMovieContainerForm  = ( {...props}) =>{
     const {movie} = props;
     const { push } = useHistory();
-    // const {addMovie} = props;
 
     const [mvi, setMovie] = useState({
 
@@ -27,11 +26,10 @@ const AddMovieContainerForm  = ( {...props}) =>{
     }
 
     const handleSubmit = (e) => {
-        e.preventDefault()
-        props.addMovie(mvi)
-        console.log('submit '+mvi)
-    
-        push('/movies/')
+        e.preventDefault();
+        props.addMovie(mvi);
+        console.log('submit '+mvi) ;
+        push('/movies/');
     }
 
     useEffect(()=>{

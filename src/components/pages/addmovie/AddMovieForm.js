@@ -5,34 +5,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 const AddMovieForm = (props) => {
-    // Add to container 
-    // const { push } = useHistory();
-    // const {addMovie} = props;
-
-    // const [movie, setMovie] = useState({
-    //     title: "",
-    //     director: "",
-    //     genre: "",
-    //     metascore: 0,
-    //     description:"", 
-    //     id:0,
-    //     date: Date.now()
-    // });
-
-    // const handleChange = (e) => {
-    //     setMovie({
-    //         ...movie,
-    //         [e.target.name]: e.target.value
-    //     });
-    // }
-
-    // const handleSubmit = (e) => {
-    //     e.preventDefault()
-    //     addMovie(movie)
-    //     console.log(movie)
-    
-    //     push('/movies/')
-    // }
     const {movie} = props;
 
     const { title, director, genre, metascore, description } = movie;
