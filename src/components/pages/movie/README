@@ -1,0 +1,356 @@
+import React, { useState } from "react";
+import Header from "components/Header";
+import CountriesList from "resources/data/countries-list.json";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useMemo } from "react";
+import ExternalInfo from "components/ExternalInfo";
+
+const SearchFilter = () => {
+    const [search, setSearch] = useState("");
+
+    const countries = useMemo(() => {
+        if (!search) return CountriesList;
+
+        return CountriesList.filter((country) => {
+            return (
+                country.name.toLowerCase().includes(search.toLowerCase()) ||
+                country.region.toLowerCase().includes(search.toLowerCase())
+            );
+        });
+    }, [search, CountriesList]);
+
+    return (
+        <>
+            <Header title="Country Search (Using useMemo)" />
+
+            <ExternalInfo page="searchFilter" />
+
+            <div className="row justify-content-center mt-4">
+                <div className="col-lg-6 text-center">
+                    <div className="row">
+                        <div className="col-12">
+                            <div className="input-group mb-3">
+                                <div className="input-group-append">
+                                    <span
+                                        className="input-group-text"
+                                        id="basic-addon1"
+                                    >
+                                        <FontAwesomeIcon icon="search" />
+                                    </span>
+                                </div>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Search Country"
+                                    aria-label="Search"
+                                    aria-describedby="basic-addon1"
+                                    value={search}
+                                    onChange={(e) => setSearch(e.target.value)}
+                                />
+                            </div>
+                        </div>
+                        <div className="col-12">
+                            <ul className="list-group text-left">
+                                {countries.map((country, idx) => (
+                                    <CountryListItem {...country} key={idx} />
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </>
+    );
+};
+
+const CountryListItem = ({ name, flag, region }) => {
+    return (
+        <li className="list-group-item d-flex">
+            <div className="d-inline">
+                <img src={flag} style={{ width: "60px" }} />
+            </div>
+            <div className="col pt-2">
+                {name} <span className="badge badge-info">{region}</span>
+            </div>
+        </li>
+    );
+};
+
+export default SearchFilter;
+
+USE memo example for the find id render
+
+import { useState, useMemo } from "react";
+
+// Usage
+function App() {
+  // State for our counter
+  const [count, setCount] = useState(0);
+  // State to keep track of current word in array we want to show
+  const [wordIndex, setWordIndex] = useState(0);
+
+  // Words we can flip through and view letter count
+  const words = ["hey", "this", "is", "cool"];
+  const word = words[wordIndex];
+
+  // Returns number of letters in a word
+  // We make it slow by including a large and completely unnecessary loop
+  const computeLetterCount = (word) => {
+    let i = 0;
+    while (i < 1000000000) i++;
+    return word.length;
+  };
+
+  // Memoize computeLetterCount so it uses cached return value if input array ...
+  // ... values are the same as last time the function was run.
+  const letterCount = useMemo(() => computeLetterCount(word), [word]);
+
+  // This would result in lag when incrementing the counter because ...
+  // ... we'd have to wait for expensive function when re-rendering.
+  //const letterCount = computeLetterCount(word);
+
+  return (
+    <div style={{ padding: "15px" }}>
+      <h2>Compute number of letters (slow 🐌)</h2>
+      <p>
+        "{word}" has {letterCount} letters
+      </p>
+      <button
+        onClick={() => {
+          const next = wordIndex + 1 === words.length ? 0 : wordIndex + 1;
+          setWordIndex(next);
+        }}
+      >
+        Next word
+      </button>
+
+      <h2>Increment a counter (fast ⚡️)</h2>
+      <p>Counter: {count}</p>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+    </div>
+  );
+}
+
+// Use reducer for the id
+The useReducer Hook is similar to the useState Hook.
+
+It allows for custom state logic.
+
+If you find yourself keeping track of multiple pieces of state that rely on complex logic, useReducer may be useful.
+Syntax
+
+The useReducer Hook accepts two arguments.
+
+useReducer(<reducer>, <initialState>)
+
+The reducer function contains your custom state logic and the initialStatecan be a simple value but generally will contain an object.
+
+The useReducer Hook returns the current stateand a dispatchmethod.
+
+Here is an example of useReducer in a counter app:
+Example:
+
+import { useReducer } from "react";
+import ReactDOM from "react-dom";
+
+const initialTodos = [
+  {
+    id: 1,
+    title: "Todo 1",
+    complete: false,
+  },
+  {
+    id: 2,
+    title: "Todo 2",
+    complete: false,
+  },
+];
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "COMPLETE":
+      return state.map((todo) => {
+        if (todo.id === action.id) {
+          return { ...todo, complete: !todo.complete };
+        } else {
+          return todo;
+        }
+      });
+    default:
+      return state;
+  }
+};
+
+function Todos() {
+  const [todos, dispatch] = useReducer(reducer, initialTodos);
+
+  const handleComplete = (todo) => {
+    dispatch({ type: "COMPLETE", id: todo.id });
+  };
+
+  return (
+    <>
+      {todos.map((todo) => (
+        <div key={todo.id}>
+          <label>
+            <input
+              type="checkbox"
+              checked={todo.complete}
+              onChange={() => handleComplete(todo)}
+            />
+            {todo.title}
+          </label>
+        </div>
+      ))}
+    </>
+  );
+}
+
+ReactDOM.render(<Todos />, document.getElementById('root'));
+
+This is just the logic to keep track of the todo complete status.
+
+All of the logic to add, delete, and complete a todo could be contained within a single useReducer Hook by adding more actions.
+
+
+The React useCallback Hook returns a memoized callback function.
+
+Think of memoization as caching a value so that it does not need to be recalculated.
+
+This allows us to isolate resource intensive functions so that they will not automatically run on every render.
+
+The useCallback Hook only runs when one of its dependencies update.
+
+This can improve performance.
+
+The useCallback and useMemo Hooks are similar. The main difference is that useMemo returns a memoized value and useCallback returns a memoized function. You can learn more about useMemo in the useMemo chapter.
+Problem
+
+One reason to use useCallback is to prevent a component from re-rendering unless its props have changed.
+
+In this example, you might think that the Todos component will not re-render unless the todos change:
+
+This is a similar example to the one in the React.memo section.
+Example:
+
+index.js
+
+import { useState } from "react";
+import ReactDOM from "react-dom";
+import Todos from "./Todos";
+
+const App = () => {
+  const [count, setCount] = useState(0);
+  const [todos, setTodos] = useState([]);
+
+  const increment = () => {
+    setCount((c) => c + 1);
+  };
+  const addTodo = () => {
+    setTodos((t) => [...t, "New Todo"]);
+  };
+
+  return (
+    <>
+      <Todos todos={todos} addTodo={addTodo} />
+      <hr />
+      <div>
+        Count: {count}
+        <button onClick={increment}>+</button>
+      </div>
+    </>
+  );
+};
+
+ReactDOM.render(<App />, document.getElementById('root'));
+
+Todos.js
+
+import { memo } from "react";
+
+const Todos = ({ todos, addTodo }) => {
+  console.log("child render");
+  return (
+    <>
+      <h2>My Todos</h2>
+      {todos.map((todo, index) => {
+        return <p key={index}>{todo}</p>;
+      })}
+      <button onClick={addTodo}>Add Todo</button>
+    </>
+  );
+};
+
+export default memo(Todos);
+useCallback
+Try running this and click the count increment button.
+
+You will notice that the Todos component re-renders even when the todos do not change.
+
+Why does this not work? We are using memo, so the Todos component should not re-render since neither the todos state nor the addTodo function are changing when the count is incremented.
+
+This is because of something called "referential equality".
+
+Every time a component re-renders, its functions get recreated. Because of this, the addTodo function has actually changed.
+w3schools CERTIFIED . 2021
+Get Certified!
+Complete the React modules, do the exercises, take the exam and become w3schools certified!!
+
+Solution
+
+To fix this, we can use the useCallback hook to prevent the function from being recreated unless necessary.
+
+Use the useCallback Hook to prevent the Todos component from re-rendering needlessly:
+Example:
+
+index.js
+
+import { useState, useCallback } from "react";
+import ReactDOM from "react-dom";
+import Todos from "./Todos";
+
+const App = () => {
+  const [count, setCount] = useState(0);
+  const [todos, setTodos] = useState([]);
+
+  const increment = () => {
+    setCount((c) => c + 1);
+  };
+  const addTodo = useCallback(() => {
+    setTodos((t) => [...t, "New Todo"]);
+  }, [todos]);
+
+  return (
+    <>
+      <Todos todos={todos} addTodo={addTodo} />
+      <hr />
+      <div>
+        Count: {count}
+        <button onClick={increment}>+</button>
+      </div>
+    </>
+  );
+};
+
+ReactDOM.render(<App />, document.getElementById('root'));
+
+Todos.js
+
+import { memo } from "react";
+
+const Todos = ({ todos, addTodo }) => {
+  console.log("child render");
+  return (
+    <>
+      <h2>My Todos</h2>
+      {todos.map((todo, index) => {
+        return <p key={index}>{todo}</p>;
+      })}
+      <button onClick={addTodo}>Add Todo</button>
+    </>
+  );
+};
+
+export default memo(Todos);
+
+Now the Todos component will only re-render when the todos prop changes.
