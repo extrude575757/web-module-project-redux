@@ -1,14 +1,17 @@
-import React from "react";
+// import React from "react";
 import { render, screen } from "@testing-library/react";
-import App from "./App";
+import {App} from "./index";
+
+ 
+const inputNode = screen.getByLabelText('Movie')
 
 test('renders App without errors', () => {
-  render(<App />);
+  // render(<App />);
 })
 
 
 test('render App without errors', () =>{
-  render(<App />);
+  // render(<App />);
   const header = screen.getByText(/Add Movie/i);
   console.log('testrender ',header);
 

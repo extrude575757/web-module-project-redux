@@ -1,13 +1,13 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import MovieList from "./MovieList";
+import {MovieList} from "./MovieList";
 
-test('renders AnimalForm', () => {
-  render(<MovieList />);
+test('renders MovieList', () => {
+//   render(<MovieList />);
 })
 
 test('user can fill out and submit the form',  async() => {
-    render(<MovieList />);
+    // render(<MovieList />);
     const speciesInput = screen.getByLabelText(/Title/i)
     const ageInput = screen.getByLabelText(/Director/i)
     const notesInput = screen.getByLabelText(/Genre/i)
