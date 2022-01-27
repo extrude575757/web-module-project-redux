@@ -1,16 +1,38 @@
 // import React from "react";
-import { render, screen } from "@testing-library/react";
-import {App} from "./index";
+import React from 'react'
+import ReactDOM from 'react-dom';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider} from 'react-redux'; 
+import App from './App';
+import { render, screen } from '@testing-library/react'
+import { userEvent } from '@testing-library/user-event'
+import createMemoryHistory from 'history'
+import { BrowserRouter as Router } from 'react-router-dom';
 
- 
-const inputNode = screen.getByLabelText('Movie')
+// const inputNode = screen.getByLabelText('Movie')
 
-test('renders App without errors', () => {
-  // render(<App />);
-})
+// test('renders App without errors', () => {
+//   // render(<App />);
+// })
 
 
-test('render App without errors', () =>{
+
+// import App from './App';
+
+// test('renders without crashing', () => {
+//   // const div = document.createElement('div');
+//   const history = createMemoryHistory()
+// ReactDOM.render(  
+//   <Router history={history}>
+//   <Provider>
+//       <App /> 
+//   </Provider>
+//   </Router>
+//   );
+//   // ReactDOM.unmountComponentAtNode(div);
+// });
+
+it('render App without errors', () =>{
   // render(<App />);
   const header = screen.getByText(/Add Movie/i);
   console.log('testrender ',header);
