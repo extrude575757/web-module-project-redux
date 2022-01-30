@@ -17,8 +17,7 @@ const App = props => {
   const {displayFavorites} = props;
   
   return (
-    <div>
-      
+    <div> 
       <navit />
       <div className="container">
         <MovieHeader/>

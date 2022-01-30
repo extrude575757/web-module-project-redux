@@ -13,12 +13,8 @@ describe('My First Test', function () {
         it('Visits a new site', function() {
         // Act
         cy.visit("localhost:3000/public/index.html");
-        cy.get('.App')
-        .find('[type="text"]')
-      cy.get('.App').submit()
-        .next().should('contain', 'Volunteer Sign Up')
-
-
+        cy.get('.App').find('[type="text"]');
+        cy.get('.App').submit().next().should('contain', 'IMDB Movie Database'); 
         })
     })
     

@@ -1,20 +1,20 @@
 import React, {useState} from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux'
-import {deleteMovie} from '../../../actions/movieActions'
-import { addFavorites, deleteFavorites } from '../../../actions/favoritesActions'
+import {deleteMovie} from '../../actions/movieActions'
+import { addFavorites, deleteFavorites } from '../../actions/favoritesActions'
 const axios = require('axios'); 
-const MovieRender = (props) => { 
+const MovieZone = (props) => { 
     const { push } = useHistory(); 
     const {curMovie, deleteMovie, addFavorites} = props;
  
     return ( 
-    <div className="flexContainer">
+        <div className="flexContainer">
 
         <section className="movie-details">
             <div>
                 <label>Title: <strong>{ 
-                curMovie?.title
+                movie.title
 
                 }</strong></label>
             </div>
@@ -65,4 +65,4 @@ const MovieRender = (props) => {
         })
     }
     
-    export default connect(mapStateToProps,{deleteMovie, addFavorites, deleteFavorites})(MovieRender);
+    export default connect(mapStateToProps,{deleteMovie, addFavorites, deleteFavorites})(MovieZone);

@@ -26,8 +26,7 @@ const FavoriteMovieList = (props) => {
                         <span><span className="material-icons"  onClick={() => {
                             deleteFavorites(
                                     movie?.id === undefined  || movie?.id === null ? 
-                                           '' : movie?.id
-                                
+                                           '' : movie?.id 
                             )
                         }}>remove_circle</span></span>
                     </Link> 

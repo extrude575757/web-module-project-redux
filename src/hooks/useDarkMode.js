@@ -6,6 +6,5 @@ export const useDarkMode = (key) => {
     // Toggle the value
     setValue(!value)
   }
-
   return [ value, toggleDarkMode]
 }
