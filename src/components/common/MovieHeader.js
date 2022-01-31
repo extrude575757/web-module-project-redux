@@ -9,7 +9,7 @@ const MovieHeader = (props) => {
     
     return(<div className="table-title">
         <div className="row">
-        <div className="col-sm-6">
+        <div  className="col-sm-6">
             <h2>{appTitle}</h2>
         </div>
         <div className="col-sm-6 headerBar">

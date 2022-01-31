@@ -1,26 +1,29 @@
 /// <reference types="cypress" />
 
-context('Network Requests', () => {
+context('api/movie Network Requests', () => {
   beforeEach(() => {
-    cy.visit('https://example.cypress.io/commands/network-requests')
+    // cy.visit('https://example.cypress.io/commands/network-requests')
+    cy.request('https://movie-kdb.herokuapp.com/api/movie')
   })
 
   // Manage AJAX / XHR requests in your app
 
-  it('cy.server() - control behavior of network requests and responses', () => {
+  it('cy.server GET ', () => {
     // https://on.cypress.io/server
 
-    cy.server().should((server) => {
+    cy.intercept().should((server) => {
       // the default options on server
       // you can override any of these options
-      expect(server.delay).to.eq(0)
-      expect(server.method).to.eq('GET')
-      expect(server.status).to.eq(200)
       expect(server.headers).to.be.null
       expect(server.response).to.be.null
-      expect(server.onRequest).to.be.undefined
-      expect(server.onResponse).to.be.undefined
+      
       expect(server.onAbort).to.be.undefined
+      expect(server.delay).to.eq(0)
+      expect(server.onRequest).to.eq(200)
+      expect(server.onResponse).to.eq(200)
+      expect(server.method).to.eq('GET')
+      expect(server.status).to.eq(200)
+
 
       // These options control the server behavior
       // affecting all requests
@@ -43,7 +46,7 @@ context('Network Requests', () => {
     //   status: 422,
     //   response: {},
     // })
-    cy.server({
+    cy.intercept({
       method: 'POST',
       delay: 1000,
       status: 200,
@@ -56,7 +59,7 @@ context('Network Requests', () => {
 
   it('cy.request() - make an XHR request', () => {
     // https://on.cypress.io/request
-    cy.request('https://jsonplaceholder.cypress.io/comments')
+    cy.request('https://movie-kdb.herokuapp.com/api/movie')
       .should((response) => {
         expect(response.status).to.eq(200)
         // the server sometimes gets an extra comment posted from another machine
@@ -68,7 +71,7 @@ context('Network Requests', () => {
   })
 
   it('cy.request() - verify response using BDD syntax', () => {
-    cy.request('https://jsonplaceholder.cypress.io/comments')
+    cy.request('https://movie-kdb.herokuapp.com/api/movie')
     .then((response) => {
       // https://on.cypress.io/assertions
       expect(response).property('status').to.equal(200)
@@ -80,26 +83,37 @@ context('Network Requests', () => {
   it('cy.request() with query parameters', () => {
     // will execute request
     // https://jsonplaceholder.cypress.io/comments?postId=1&id=3
-    cy.request({
-      url: 'https://jsonplaceholder.cypress.io/comments',
-      qs: {
-        postId: 1,
-        id: 3,
-      },
-    })
+    cy.request( 
+      {
+        movie:[ {"id":0,"title":"","director":"","metascore":2,
+        "genre":"","description":"","favorites":false}],
+        appTitle: "IMDB Movie Database",
+        isFetching: false,
+        error: ''
+    }
+    )
     .its('body')
     .should('be.an', 'array')
-    .and('have.length', 1)
-    .its('0') // yields first element of the array
+    .and('have.length', 2)
+    .its('1') // yields first element of the array
     .should('contain', {
-      postId: 1,
-      id: 3,
+      movie:[ {"id":0,"title":"","director":"","metascore":2,
+      "genre":"","description":"","favorites":false}],
+      appTitle: "IMDB Movie Database",
+      isFetching: false,
+      error: ''
+  })
+    .then((response) =>{
+      expect(response).property('status').to.equal(200)
+      expect(response).property('body').to.have.property('length').and.be.oneOf([500, 501])
+      expect(response).to.include.keys('headers', 'duration')
+    
     })
   })
 
   it('cy.request() - pass result to the second request', () => {
     // first, let's find out the userId of the first user we have
-    cy.request('https://jsonplaceholder.cypress.io/users?_limit=1')
+    cy.request('https://movie-kdb.herokuapp.com/api/movie')
       .its('body') // yields the response object
       .its('0') // yields the first element of the returned list
       // the above two commands its('body').its('0')
@@ -108,10 +122,15 @@ context('Network Requests', () => {
       .then((user) => {
         expect(user).property('id').to.be.a('number')
         // make a new post on behalf of the user
-        cy.request('POST', 'https://jsonplaceholder.cypress.io/posts', {
-          userId: user.id,
-          title: 'Cypress Test Runner',
-          body: 'Fast, easy and reliable testing for anything that runs in a browser.',
+        cy.request('POST', 'https://movie-kdb.herokuapp.com/api/movie', {
+          id: user.id,
+          title: user.title,
+          director: user.director ,
+          metascore: user.metascore,
+          genre: user.genre,
+          description:user.description,
+          favorites: user.favorites, 
+
         })
       })
       // note that the value here is the returned value of the 2nd request
@@ -156,7 +175,7 @@ context('Network Requests', () => {
         // When this callback runs, both "cy.request" API commands have finished
         // and the test context has "user" and "post" objects set.
         // Let's verify them.
-        expect(this.post, 'post has the right user id').property('userId').to.equal(this.user.id)
+        expect(this.post, 'post has the right user id').property('id').to.equal(this.user.id)
       })
   })
 
@@ -165,10 +184,20 @@ context('Network Requests', () => {
 
     let message = 'whoa, this comment does not exist'
 
-    cy.server()
+    cy.intercept()
 
     // Listen to GET to comments/1
-    cy.route('GET', 'comments/*').as('getComment')
+    // cy.route('GET', 'comments/*').as('getComment')
+    cy.route('https://localhost:3000/movies/*',[{
+      id: user.id,
+      title: user.title,
+      director: user.director ,
+      metascore: user.metascore,
+      genre: user.genre,
+      description:user.description,
+      favorites: user.favorites, 
+
+    }])
 
     // we have code that gets a comment when
     // the button is clicked in scripts.js
