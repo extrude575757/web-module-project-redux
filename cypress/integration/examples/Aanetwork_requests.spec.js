@@ -1,7 +1,5 @@
 /// <reference types="cypress" />
-
-
-
+ 
 // context('Network Requests', () => {
 //   beforeEach(() => {
 //     cy.visit('http://localhost:8080/commands/network-requests')
@@ -176,7 +174,17 @@ context('api/movie Network Requests', () => {
 
   beforeEach(() => {
     cy.intercept(
-      { url: 'http://localhost:3000/**', middleware: false },
+      { url: 'http://localhost:3000/**', middleware: true },
+      // Delete 'if-none-match' header from all outgoing requests
+      (req) => delete req.headers['if-none-match']
+    )
+    cy.intercept(
+      { url: 'https://movie-reducer.herokuapp.com/**', middleware: true },
+      // Delete 'if-none-match' header from all outgoing requests
+      (req) => delete req.headers['if-none-match']
+    )
+    cy.intercept(
+      { url: 'https://movie-kdb.herokuapp.com/api/**', middleware: true },
       // Delete 'if-none-match' header from all outgoing requests
       (req) => delete req.headers['if-none-match']
     )
@@ -198,23 +206,44 @@ context('api/movie Network Requests', () => {
 
 
     // spying
-cy.intercept('/movies/**')
-cy.intercept('GET', '/movies*')
-cy.intercept({
-  method: 'GET',
-  url: '/movies*',
-  hostname: 'localhost',
-})
+    cy.intercept('/movies/**')
+    cy.intercept('GET', '/movies*')
+    cy.intercept({
+      method: 'GET',
+      url: '/movies*',
+      hostname: 'localhost',
+    })         
 
-// spying and response stubbing
-// cy.intercept('POST', '/movies*', {
-//   statusCode: 201,
-//   body: {
-//     name: 'Peter Pan',
-//   },
-// })
+    // spying and response stubbing
+    // cy.intercept('POST', '/movies*', {
+    //   statusCode: 201,
+    //   body: {
+    //     name: 'Peter Pan',
+    //   },
+    // })
 
 // spying, dynamic stubbing, request modification, etc.
+cy.intercept('/movies*', { hostname: 'movie-reducer.herokuapp.com' }, (req) => {
+  /* do something with request and/or response */
+      expect(server.method).to.eq('GET')
+      expect(server.status).to.eq(200)
+
+
+      // These options control the server behavior
+      // affecting all requests
+
+      // pass false to disable existing route stubs
+      expect(server.enable).to.be.true
+      // forces requests that don't match your routes to 404
+      expect(server.force404).to.be.false
+
+      if (Number(Cypress.version.charAt(0)) >= 5) {
+        // ignores requests from ever being logged or stubbed
+        // @ts-ignore
+        expect(server.ignore).to.be.a('function')
+      }
+})
+
 cy.intercept('/movies*', { hostname: 'localhost' }, (req) => {
   /* do something with request and/or response */
       expect(server.method).to.eq('GET')
